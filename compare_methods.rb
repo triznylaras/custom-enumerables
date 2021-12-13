@@ -30,3 +30,36 @@ p arr.select { |item| item.odd? }
 p hash.my_select { |k, v| v > 1 }
 p hash.select { |k, v| v > 1 }
 puts ''
+
+puts "-------- #my_all? vs #all? --------"
+p arr.my_all?(&:positive?)
+p arr.all?(&:positive?)
+puts ''
+
+puts "-------- #my_any? vs #any? --------"
+p arr.my_any?(&:odd?)
+p arr.any?(&:odd?)
+puts ''
+
+puts "-------- #my_none? vs #none? --------"
+p arr.my_none?(String)
+p arr.none?(String)
+puts ''
+
+puts "-------- #my_count vs #count --------"
+p arr.my_count(&:even?)
+p arr.count(&:even?)
+puts ''
+
+puts "-------- #my_map vs #map --------"
+a_proc = Proc.new { |el| el.to_s }
+p arr.my_map(a_proc) # => ["1", "2", "3", "4"]
+p arr.my_map(a_proc) { |i| i * 2 } # => ["1", "2", "3", "4"]
+p arr.my_map { |i| i * 2 } # => [2, 4, 6, 8]
+p arr.map { |i| i * 2 }
+puts ''
+
+puts "-------- #my_inject vs #inject --------"
+p [2, 4, 5].my_inject(2) { |sum, n| sum * n }
+p [2 ,4, 5].my_inject(2) { |sum, n| sum * n }
+puts ''
